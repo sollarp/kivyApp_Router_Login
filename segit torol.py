@@ -1,13 +1,17 @@
 class A():
-   # change = ''
+
     def alfa(self):
+        self.terror = B()
+        print(self.terror.beta())
         self.change = 'hit'
         return self.change
 
 class B():
-    otherclass = A()
+
     def beta(self):
+        self.otherclass = A()
         print(self.otherclass.alfa())
+        return '50'
 
 
 run = B()

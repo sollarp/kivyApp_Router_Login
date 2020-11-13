@@ -19,12 +19,13 @@ screen_helper = """
         id: screen2
         name: 'profile'
 
-<MenuScreen@ListButtonDropdown1>:
+<MenuScreen>:
     name: 'menu'
     adminpass: adminpass
     Screen
         id: adminpass
         adminp: adminp
+        list: list
         MDTextField:
             id: adminp
             size_hint_x: None
@@ -33,6 +34,7 @@ screen_helper = """
             hint_text: 'Admin Password'
             pos_hint: {'center_x': .5, 'center_y': .6}
         ListButtonDropdown1:
+            id: list
             pos_hint: {'center_x': .5, 'center_y': .75}
             text: 'Select Your Router'
             on_release: self.menu.open()
@@ -40,7 +42,7 @@ screen_helper = """
             text: 'Login'
             pos_hint: {'center_x':0.5,'center_y':0.45}
             on_press: 
-                root.manager.current = root.LogOnRouter()
+                root.manager.current = root.log_on_router()
 
 
 
@@ -184,9 +186,7 @@ screen_helper = """
 class ScreenManagement(ScreenManager):
     pass
 
-
 class ListButtonDropdown1(MDDropDownItem):
-    print('after string')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -195,22 +195,18 @@ class ListButtonDropdown1(MDDropDownItem):
         self.menu = MDDropdownMenu(
             caller=self,
             items=menu_items,
-            callback=self.set_item2,
+            callback=self.set_item_c,
             width_mult=4,
         )
 
-    def set_item2(self, instance):
+    def set_item_c(self, instance):
         self.set_item(instance.text)
         self.menu.dismiss()
-        print('happened')
-        self.ger = 'siker'
-        return self.ger
-
 
 class MenuScreen(Screen):
     adminpass = ObjectProperty(None)
 
-    def LogOnRouter(self):
+    def log_on_router(self):
         self.check_data_login()
         changescreen = 'profile'
         return changescreen
@@ -218,7 +214,9 @@ class MenuScreen(Screen):
     def check_data_login(self):
         # print(self.das.set_item2())
         password = self.adminpass.adminp.text
+        selecteditem = self.adminpass.list.current_item
         print(password)
+        print(selecteditem)
 
 
 class ProfileScreen(Screen):
@@ -249,7 +247,8 @@ sm.add_widget(UploadScreen(name='upload'))
 class DemoApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.screen = Builder.load_string(screen_helper)
+        Builder.load_string(screen_helper)
+
 
     def build(self):
         return ScreenManagement()

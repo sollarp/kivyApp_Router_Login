@@ -5,7 +5,7 @@ def bt_connection_page():
     #x = requests.get('https:192.168.1.254')
     #print(x.status_code)
     #use## x.content
-    soup = BeautifulSoup(open("BT CONNECTION TAB.html"), features="lxml")
+    soup = BeautifulSoup(open("HTML_container/BT CONNECTION TAB.html"), features="lxml")
     #print(soup.prettify())
     #soup = BeautifulSoup(x, 'html.parser')
     scr = soup.find_all("td", {"class":"bt_border"})
