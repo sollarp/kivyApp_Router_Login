@@ -1,0 +1,114 @@
+<body alink="#005293" vlink="#005293" link="#005293" bgcolor="#F8F8F8" onload="loaded()"><div id="content"><form name="form_contents" method="POST" action="index.cgi" enctype="application/x-www-form-urlencoded" onsubmit="if (window.is_submit &amp;&amp; is_submit==1) return false; is_submit=1; return true; "><input type="HIDDEN" name="request_id" value="1630669805"><input type="HIDDEN" name="active_page" value="9122"><input type="HIDDEN" name="active_page_str" value="page_settings_a_adsl"><input type="HIDDEN" name="mimic_button_field" value=""><input type="HIDDEN" name="button_value" value=""><input type="HIDDEN" name="post_token" value="c88322535534de8c52bc4325ec2e644706425d78139b9b2115f463074f7275e2"><script type="text/javascript"><!--
+var is_loaded=0;
+function loaded()
+{
+  setTimeout('p_ajax_conn_status()', 5000);
+  var inp;
+
+  is_loaded=1;
+  bt_widgets_load();
+  set_focus("");
+  window.status = '';
+}
+var bt_is_business = false;
+img_preload_home = new Image();
+img_preload_home.src = '/images/home_default.gif';
+img_preload_home_roll = new Image();
+img_preload_home_roll.src = '/images/home_rollover.gif';
+img_preload_settings = new Image();
+img_preload_settings.src = '/images/settings_default.gif';
+img_preload_settings_roll = new Image();
+img_preload_settings_roll.src = '/images/settings_rollover.gif';
+img_preload_troubleshooting = new Image();
+img_preload_troubleshooting.src = '/images/troubleshooting_default.gif';
+img_preload_troubleshooting_roll = new Image();
+img_preload_troubleshooting_roll.src = '/images/troubleshooting_rollover.gif';
+function p_ajax_conn_status()
+    {
+        ajax_download_start('conn_status=1', p_ajax_conn_status_cb);
+    }
+function p_ajax_conn_status_cb(xml)
+    {
+        if (document.getElementById('conn_status').innerHTML != xml)
+            {
+                document.getElementById('conn_status').innerHTML = xml;
+                mimic_button('submit_button_ajax_refresh', 1);
+            }
+        else
+            setTimeout('p_ajax_conn_status()', 5000);
+    }
+wait = 450420;
+time_id = "PTS";
+
+function Update_time_left()
+{
+  wait = wait + 1;
+  days = parseInt(wait / (24 * 60 * 60));
+  totalminutes = parseInt(wait / 60);
+  totalhours = parseInt(totalminutes / 60);
+  hours = parseInt(totalhours - days * 24);
+  seconds = parseInt(wait - totalminutes * 60);
+  minutes = parseInt(totalminutes - totalhours * 60);
+  if (parseInt(seconds) < 10)
+    seconds = "0" + seconds;
+  if (parseInt(minutes) < 10)
+    minutes = "0" + minutes;
+  if (parseInt(hours) < 10)
+    hours = "0" + hours;
+  document.getElementById(time_id).innerHTML = days + " days, "   + hours + ":" + minutes + ":" + seconds;
+}
+
+function func_on_load()
+{
+  Update_time_left();
+  ID = window.setInterval("Update_time_left();" ,1000);
+}
+
+var is_button_in_focus=false;
+var is_textarea_in_focus=false;
+var is_submit=0;
+var timer=0;
+var suppress_keystroke=0;
+
+var is_file_upload = 0;
+
+function mimic_button(button_name,use_default_cgi)
+{
+  if (is_submit)
+    return;
+  f=document.form_contents;
+  f.mimic_button_field.value = button_name;
+  is_submit=1;
+  setTimeout("is_submit=0", 1000);
+  if (timer)
+  {
+    clearTimeout(timer);
+    timer = 0;
+  }
+  if (use_default_cgi)
+  {
+    f.encoding = "application/x-www-form-urlencoded";
+    f.action = "index.cgi";
+  }
+  else
+    is_submit=0;
+  try {
+  f.submit();
+ } catch (err) {
+ if (is_file_upload)
+   alert("Filename in file input must include a full path.");
+ }
+ d=document.getElementById("applying_div");
+ if (d && button_name.indexOf("apply") != -1)
+   d.style.display = "";
+}
+function set_cgi(action,encoding)
+{
+  f=document.form_contents;
+  f.encoding=encoding;
+  f.action=action;
+}
+
+
+// -->
+</script><table border="0" cellpadding="0" cellspacing="0" width="100%" id="struct_table"><tbody><tr><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="40"><img border="0" src="/images/empty.gif" width="40" height="2" alt=""></td><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="50%"><img border="0" src="/images/empty.gif" width="2" height="2" alt=""></td><td class="topbar" bgcolor="#F8F8F8" align="LEFT" valign="TOP"><div class="admin_row"><a href="help.htm#A_CONNECTION" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" target="_blank" accesskey="6">Help</a> | <a href="?active_page_str=page_a_z" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;">A-Z</a></div><table border="0" cellpadding="0" cellspacing="0" width="695"><tbody><tr><td align="CENTER" valign="MIDDLE" colspan="3"><img border="0" src="/images/second_nav_top.gif" width="695" height="23" alt=""></td></tr><tr><td align="RIGHT" valign="MIDDLE"><img border="0" src="/images/second_nav_left.gif" width="24" height="28" alt=""></td><td align="CENTER" valign="MIDDLE"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td style="background:url(/images/home_default.gif);" align="CENTER" valign="MIDDLE" nowrap=""><span onmouseover="this.getElementsByTagName('img')[0].src='/images/home_rollover.gif';" onmouseout="this.getElementsByTagName('img')[0].src='/images/home_default.gif';"><a href="?active_page=9098&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="1"><img border="0" src="/images/home_default.gif" width="162" height="28" alt="home"></a></span></td><td style="background:url(/images/settings_default.gif);" align="CENTER" valign="MIDDLE" nowrap=""><span onmouseover="this.getElementsByTagName('img')[0].src='/images/settings_rollover.gif';" onmouseout="this.getElementsByTagName('img')[0].src='/images/settings_default.gif';"><a href="?active_page=9100&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="s"><img border="0" src="/images/settings_default.gif" width="162" height="28" alt="settings"></a></span></td><td style="background:url(/images/advanced_settings_selected.gif);" align="CENTER" valign="MIDDLE" nowrap=""><span><a href="?active_page=9101&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="x"><img border="0" src="/images/advanced_settings_selected.gif" width="162" height="28" alt="advanced_settings"></a></span></td><td style="background:url(/images/troubleshooting_default.gif);" align="CENTER" valign="MIDDLE" nowrap=""><span onmouseover="this.getElementsByTagName('img')[0].src='/images/troubleshooting_rollover.gif';" onmouseout="this.getElementsByTagName('img')[0].src='/images/troubleshooting_default.gif';"><a href="?active_page=9142&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="t"><img border="0" src="/images/troubleshooting_default.gif" width="162" height="28" alt="troubleshooting"></a></span></td></tr></tbody></table></td><td align="LEFT" valign="MIDDLE"><img border="0" src="/images/second_nav_right.gif" width="23" height="28" alt=""></td></tr><tr><td class="second_nav_mid" align="CENTER" valign="MIDDLE" colspan="3"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="LEFT" valign="TOP" height="48" width="24"><img border="0" src="/images/empty.gif" width="24" height="48" alt=""></td><td align="CENTER" valign="MIDDLE"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="bt_tab2" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9104&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="w">Wireless</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row2">&nbsp;</div></td><td class="bt_tab2_sel" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9121&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="b">Broadband</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row2">&nbsp;</div></td><td class="bt_tab2" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9133&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="h">Home Network</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row2">&nbsp;</div></td><td class="bt_tab2" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9108&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="p">Firewall</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row2">&nbsp;</div></td><td class="bt_tab2" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9128&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="y">System</a></td><td align="CENTER" valign="MIDDLE" width="100%"><img border="0" src="/images/empty.gif" width="2" height="2" alt=""></td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td class="second_nav_bottom" align="CENTER" valign="MIDDLE" colspan="3"><table border="0" cellpadding="0" cellspacing="0" class="center_table"><tbody><tr><td align="CENTER" valign="MIDDLE" height="48"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="bt_tab3" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9121&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="i">Internet</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row3">&nbsp;</div></td><td class="bt_tab3_sel" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9122&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="c">Connection</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row3">&nbsp;</div></td><td class="bt_tab3" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9123&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="v">VPN</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row3">&nbsp;</div></td><td class="bt_tab3" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9125&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="d">Dynamic DNS</a></td><td align="LEFT" valign="MIDDLE"><div class="nav_separator_row3">&nbsp;</div></td><td class="bt_tab3" align="CENTER" valign="MIDDLE" height="40" nowrap=""><a href="?active_page=9126&amp;request_id=1630669805&amp;nav_clear=1" onfocus="is_button_in_focus=true;" onblur="is_button_in_focus=false;" accesskey="s">IPv6 Status</a></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="50%"><img border="0" src="/images/empty.gif" width="2" height="2" alt=""></td><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="40"><img border="0" src="/images/empty.gif" width="40" height="2" alt=""></td></tr><tr><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" colspan="5" height="23"><img border="0" src="/images/empty.gif" width="2" height="23" alt=""></td></tr><tr><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="40"><img border="0" src="/images/empty.gif" width="40" height="2" alt=""></td><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="50%"><img border="0" src="/images/empty.gif" width="2" height="2" alt=""></td><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" height="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="#F8F8F8" align="CENTER" valign="MIDDLE"><div id="frame_div" style="display:block"><div class="bt_class"><h1>DSL Line Status</h1></div><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="bt_section_body_copy_first" align="LEFT" valign="MIDDLE"><div class="bt_class"><h2 class="bt_section_sub_title">Connection Information</h2></div><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr bgcolor="#EEEEEE"><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%">Line state:</td><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%">Connected</td></tr><tr bgcolor="#F3F3F3"><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%">Connection time:</td><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%"><span id="PTS">5 days, 05:08:01</span></td></tr><tr bgcolor="#EEEEEE"><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%">Downstream:</td><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%">8.064 Mbps</td></tr><tr bgcolor="#F3F3F3"><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%">Upstream:</td><td class="bt_border" align="LEFT" valign="MIDDLE" width="50%">448 Kbps</td></tr></tbody></table></td></tr><tr><td class="bt_section_body_copy" align="LEFT" valign="MIDDLE">&nbsp;</td></tr></tbody></table><span id="conn_status" style="display:none;">ppp0_0</span></div></td></tr></tbody></table></td><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="50%"><img border="0" src="/images/empty.gif" width="2" height="2" alt=""></td><td bgcolor="#F8F8F8" align="LEFT" valign="TOP" width="40"><img border="0" src="/images/empty.gif" width="40" height="2" alt=""></td></tr><tr><td align="LEFT" valign="BOTTOM" colspan="5"><div id="footer_cont"><div id="footer"><div>BT Home Hub 5 (Type A) | Software version 4.7.5.1.83.8.264 | Last updated 06/03/19</div></div></div></td></tr></tbody></table></form></div></body>
