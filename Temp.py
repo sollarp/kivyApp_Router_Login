@@ -1,8 +1,6 @@
 class A():
 
     def alfa(self):
-        self.terror = B()
-        print(self.terror.beta())
         self.change = 'hit'
         return self.change
 

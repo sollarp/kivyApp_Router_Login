@@ -4,9 +4,8 @@ from kivy.lang import Builder
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dropdownitem import MDDropDownItem
 from kivy.properties import ObjectProperty
-from router_ui_html import bt_connection_page
 from kivy.core.window import Window
-from kivy.properties import StringProperty
+
 
 Window.size = (300, 500)
 screen_helper = """
