@@ -5,6 +5,7 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dropdownitem import MDDropDownItem
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
+from Router_UI_Scrape.BT_Hub5_ConnPage import bt_connection_page, get_password
 
 
 Window.size = (300, 500)
@@ -181,11 +182,24 @@ screen_helper = """
         on_press: root.manager.current = 'menu'
 """
 
+class InstanceHolder():
+    test_instance = None
+
+    def set_instance(self, instance):
+        self.test_instance = instance
+
+    def get_instance(self):
+        return self.test_instance
+
+dummy_instance = InstanceHolder()
+
 
 class ScreenManagement(ScreenManager):
     pass
 
 class ListButtonDropdown1(MDDropDownItem):
+
+    instance_text = ""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -197,10 +211,15 @@ class ListButtonDropdown1(MDDropDownItem):
             callback=self.set_item_c,
             width_mult=4,
         )
+        dummy_instance.set_instance(self)
 
     def set_item_c(self, instance):
         self.set_item(instance.text)
         self.menu.dismiss()
+        self.instance_text = instance.text
+
+    def get_instance_text(self):
+        return self.instance_text
 
 class MenuScreen(Screen):
     adminpass = ObjectProperty(None)
@@ -212,8 +231,10 @@ class MenuScreen(Screen):
 
     def check_data_login(self):
         # print(self.das.set_item2())
+        print(dummy_instance.get_instance().instance_text)
         password = self.adminpass.adminp.text
         selecteditem = self.adminpass.list.current_item
+        get_password(admin_pass=password)
         print(password)
         print(selecteditem)
 
