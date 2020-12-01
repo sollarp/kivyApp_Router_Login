@@ -5,9 +5,9 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dropdownitem import MDDropDownItem
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
-from Router_UI_Scrape.BT_Hub5_ConnPage import bt_connection_page, get_password
+from Router_UI_Scrape.BT_Hub5_ConnPage import Hub_5
 
-
+hub5 = Hub_5()
 Window.size = (300, 500)
 screen_helper = """
 
@@ -224,6 +224,7 @@ class ListButtonDropdown1(MDDropDownItem):
 class MenuScreen(Screen):
     adminpass = ObjectProperty(None)
 
+
     def log_on_router(self):
         self.check_data_login()
         changescreen = 'profile'
@@ -234,7 +235,8 @@ class MenuScreen(Screen):
         print(dummy_instance.get_instance().instance_text)
         password = self.adminpass.adminp.text
         selecteditem = self.adminpass.list.current_item
-        get_password(admin_pass=password)
+
+        hub5.get_password(admin_pass=password)
         print(password)
         print(selecteditem)
 
@@ -243,14 +245,14 @@ class ProfileScreen(Screen):
 
     def navigation_draw(self):
         labelin1 = self.ids.label1
-        labelin1.text = bt_connection_page()[0]
+        labelin1.text = hub5.bt_connection_page()[0]
         labelin2 = self.ids.label2
-        labelin2.text = bt_connection_page()[1]
+        labelin2.text = hub5.bt_connection_page()[1]
         labelin3 = self.ids.label3
-        labelin3.text = bt_connection_page()[2]
+        labelin3.text = hub5.bt_connection_page()[2]
         labelin4 = self.ids.label4
-        labelin4.text = bt_connection_page()[3]
-
+        labelin4.text = hub5.bt_connection_page()[3]
+        print(labelin4.text)
 
 class UploadScreen(Screen):
     pass
