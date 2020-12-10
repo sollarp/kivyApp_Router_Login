@@ -6,6 +6,9 @@ from kivymd.uix.dropdownitem import MDDropDownItem
 from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from Router_UI_Scrape.BT_Hub5_ConnPage import Hub_5
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
+import time
 
 hub5 = Hub_5()
 Window.size = (300, 500)
@@ -42,9 +45,8 @@ screen_helper = """
             text: 'Login'
             pos_hint: {'center_x':0.5,'center_y':0.45}
             on_press: 
-                root.manager.current = root.log_on_router()
-
-
+                root.manager.current = root.check_data_login()
+       
 
 <ProfileScreen>:
     name: 'profile'
@@ -182,14 +184,16 @@ screen_helper = """
         on_press: root.manager.current = 'menu'
 """
 
+## Getting dropdown item from ListButtonDropdown1 class
 class InstanceHolder():
     test_instance = None
 
     def set_instance(self, instance):
         self.test_instance = instance
 
-    def get_instance(self):
-        return self.test_instance
+    #def get_instance(self):
+        #return self.test_instance
+
 
 dummy_instance = InstanceHolder()
 
@@ -197,8 +201,8 @@ dummy_instance = InstanceHolder()
 class ScreenManagement(ScreenManager):
     pass
 
-class ListButtonDropdown1(MDDropDownItem):
 
+class ListButtonDropdown1(MDDropDownItem):
     instance_text = ""
 
     def __init__(self, **kwargs):
@@ -218,41 +222,69 @@ class ListButtonDropdown1(MDDropDownItem):
         self.menu.dismiss()
         self.instance_text = instance.text
 
-    def get_instance_text(self):
-        return self.instance_text
+    #def get_instance_text(self):
+       # return self.instance_text
 
-class MenuScreen(Screen):
+
+class MenuScreen(Screen, MDApp):
     adminpass = ObjectProperty(None)
-
-
-    def log_on_router(self):
-        self.check_data_login()
-        changescreen = 'profile'
-        return changescreen
+    dialog = None
 
     def check_data_login(self):
         # print(self.das.set_item2())
-        print(dummy_instance.get_instance().instance_text)
+        #print(dummy_instance.get_instance().instance_text)
         password = self.adminpass.adminp.text
         selecteditem = self.adminpass.list.current_item
-
+        #print(selecteditem)
         hub5.get_password(admin_pass=password)
-        print(password)
-        print(selecteditem)
+        #print(password)
+        #print(selecteditem)
+
+        hub5.bt_connection_page()
+        incorrect_pass = hub5.admin_login()
+        print("nemhiszem")
+        print(incorrect_pass)
+        self.dialog = incorrect_pass
+        if not self.dialog:
+            self.dialog = MDDialog(
+                text="Discard draft?",
+                buttons=[
+                    MDFlatButton(
+                        text="CANCEL", text_color=self.theme_cls.primary_color),
+                    MDFlatButton(
+                        text="DISCARD", text_color=self.theme_cls.primary_color),
+                ],
+            )
+            self.dialog.open()
+        else:
+            changescreen = 'profile'
+            print("eddig")
+            return changescreen
+
 
 
 class ProfileScreen(Screen):
 
     def navigation_draw(self):
-        labelin1 = self.ids.label1
-        labelin1.text = hub5.bt_connection_page()[0]
-        labelin2 = self.ids.label2
-        labelin2.text = hub5.bt_connection_page()[1]
-        labelin3 = self.ids.label3
-        labelin3.text = hub5.bt_connection_page()[2]
-        labelin4 = self.ids.label4
-        labelin4.text = hub5.bt_connection_page()[3]
-        print(labelin4.text)
+
+        try:
+            labelin1 = self.ids.label1
+            labelin1.text = hub5.bt_connection_page()[0]
+            labelin2 = self.ids.label2
+            labelin2.text = hub5.bt_connection_page()[1]
+            labelin3 = self.ids.label3
+            labelin3.text = hub5.bt_connection_page()[2]
+            labelin4 = self.ids.label4
+            labelin4.text = hub5.bt_connection_page()[3]
+            print(labelin4.text)
+        except TypeError as e:
+            if hub5.bt_connection_page() is None:
+                print("device not connected to network")
+            else:
+                print("router not supported in here")
+        else:
+            print("final 2")
+
 
 class UploadScreen(Screen):
     pass
@@ -270,7 +302,6 @@ class DemoApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Builder.load_string(screen_helper)
-
 
     def build(self):
         return ScreenManagement()
