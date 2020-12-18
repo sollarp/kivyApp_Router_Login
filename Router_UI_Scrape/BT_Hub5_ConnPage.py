@@ -82,7 +82,7 @@ class Hub_5():
                 for word in js_time:
                     js_time = word.split(delimiter)
         except AttributeError:
-            # print("router not supported 1")
+            print("router not supported 1")
             return None
         else:
             wait = "wait"

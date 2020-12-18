@@ -259,7 +259,7 @@ class MenuScreen(Screen, MDApp):
 
 
 class ProfileScreen(Screen):
-
+    ## calling data to display on screen change
     def on_enter(self, *args):
         self.navigation_draw()
 
