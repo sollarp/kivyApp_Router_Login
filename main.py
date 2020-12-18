@@ -8,7 +8,6 @@ from kivy.core.window import Window
 from Router_UI_Scrape.BT_Hub5_ConnPage import Hub_5
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
-import time
 
 hub5 = Hub_5()
 Window.size = (300, 500)
@@ -46,11 +45,12 @@ screen_helper = """
             pos_hint: {'center_x':0.5,'center_y':0.45}
             on_press: 
                 root.manager.current = root.check_data_login()
+                
        
 
 <ProfileScreen>:
     name: 'profile'
-
+    
     BoxLayout:
         orientation:'vertical'
         MDToolbar:
@@ -102,7 +102,7 @@ screen_helper = """
                                 font_size: 15
 
                             Label:
-                                text: 'bf'
+                                text: ''
                                 id: label1
                                 color: 1,0,1,1
                                 font_size: 15
@@ -154,7 +154,7 @@ screen_helper = """
                                 id: label4
                                 color: 1,0,1,1
                                 font_size: 15
-
+                
 
             MDBottomNavigationItem:
                 name: 'screen 2'
@@ -184,6 +184,7 @@ screen_helper = """
         on_press: root.manager.current = 'menu'
 """
 
+
 ## Getting dropdown item from ListButtonDropdown1 class
 class InstanceHolder():
     test_instance = None
@@ -200,6 +201,7 @@ dummy_instance = InstanceHolder()
 
 class ScreenManagement(ScreenManager):
     pass
+
 
 
 class ListButtonDropdown1(MDDropDownItem):
@@ -230,53 +232,48 @@ class MenuScreen(Screen, MDApp):
     adminpass = ObjectProperty(None)
     dialog = None
 
+
     def check_data_login(self):
-        # print(self.das.set_item2())
-        #print(dummy_instance.get_instance().instance_text)
         password = self.adminpass.adminp.text
         selecteditem = self.adminpass.list.current_item
-        #print(selecteditem)
         hub5.get_password(admin_pass=password)
         #print(password)
         #print(selecteditem)
 
-        hub5.bt_connection_page()
+        #hub5.bt_connection_page()
         incorrect_pass = hub5.admin_login()
-        print("nemhiszem")
-        print(incorrect_pass)
         self.dialog = incorrect_pass
         if not self.dialog:
             self.dialog = MDDialog(
-                text="Discard draft?",
+                title="ERROR",
+                text="Incorrect password or no connection to router",
                 buttons=[
                     MDFlatButton(
-                        text="CANCEL", text_color=self.theme_cls.primary_color),
-                    MDFlatButton(
-                        text="DISCARD", text_color=self.theme_cls.primary_color),
+                        text="OK", text_color=self.theme_cls.primary_color),
                 ],
             )
             self.dialog.open()
         else:
-            changescreen = 'profile'
-            print("eddig")
-            return changescreen
-
+            change_screen = 'profile'
+            return change_screen
 
 
 class ProfileScreen(Screen):
 
-    def navigation_draw(self):
+    def on_enter(self, *args):
+        self.navigation_draw()
 
+    def navigation_draw(self):
+        labels = hub5.bt_connection_page()
         try:
             labelin1 = self.ids.label1
-            labelin1.text = hub5.bt_connection_page()[0]
+            labelin1.text = labels[0]
             labelin2 = self.ids.label2
-            labelin2.text = hub5.bt_connection_page()[1]
+            labelin2.text = labels[1]
             labelin3 = self.ids.label3
-            labelin3.text = hub5.bt_connection_page()[2]
+            labelin3.text = labels[2]
             labelin4 = self.ids.label4
-            labelin4.text = hub5.bt_connection_page()[3]
-            print(labelin4.text)
+            labelin4.text = labels[3]
         except TypeError as e:
             if hub5.bt_connection_page() is None:
                 print("device not connected to network")
@@ -284,6 +281,7 @@ class ProfileScreen(Screen):
                 print("router not supported in here")
         else:
             print("final 2")
+
 
 
 class UploadScreen(Screen):

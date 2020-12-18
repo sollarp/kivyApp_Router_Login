@@ -9,6 +9,7 @@ class Hub_5():
     def get_password(self, admin_pass):
         self.admin_pass = admin_pass
         return self.admin_pass
+    #get_password = lambda admin_pass: admin_pass
 
     def admin_login(self):
 
@@ -19,7 +20,7 @@ class Hub_5():
                 url1 = "http://192.168.1.254/?active_page=9101"
                 r = s.get(url1)
             except:
-                #print("check your wifi connection 1")
+                print("check your wifi connection 1")
                 return False
             else:
                 soup = BeautifulSoup(r.text, "html.parser")
@@ -51,7 +52,7 @@ class Hub_5():
                     page_connection = s.get('http://192.168.1.254/index.cgi?active_page=9122')
                     doc = BeautifulSoup(page_connection.text, 'html.parser')
                     current_title = doc.find('title').text
-                    print(current_title)  ## incorrect password or no access to router
+                    #print(current_title)  ## incorrect password or no access to router
                     if 'BT Home Hub Manager - Login' in current_title:
                         print("incorrect passwod")
                         return False
@@ -65,16 +66,13 @@ class Hub_5():
                 else:
                     return page_connection
 
-
-
-
     def bt_connection_page(self):
 
         page_resource = self.admin_login()
         try:
             soup = BeautifulSoup(page_resource.text, 'html.parser')
-            current_title = soup.find('title').text ##
-            print(current_title) ##
+            current_title = soup.find('title').text  ##
+            #print(current_title)  ##
             scr = soup.find_all("td", {"class": "bt_border"})
             ## find router uptime value in javascript
             time_run = soup.findAll('script')
@@ -84,16 +82,17 @@ class Hub_5():
                 for word in js_time:
                     js_time = word.split(delimiter)
         except AttributeError:
-            #print("router not supported 1")
+            # print("router not supported 1")
             return None
         else:
             wait = "wait"
             values = [value for value in js_time if wait in value]
+            #print(f"talalt {scr[1]}")
             try:
                 passed = (values[0])
 
                 time_in_js = passed.strip('wait =')
-                wait = time_in_js.strip(';') # router uptime in second
+                wait = time_in_js.strip(';')  # router uptime in second
                 # scrip for display time in format
                 t_days = int(wait) / (24 * 60 * 60)
                 total_hours = int(wait) / (60 * 60)
@@ -112,6 +111,8 @@ class Hub_5():
                 one_v2 = (src2.text)
                 one_v3 = (src3.text)
             except IndexError:
-                print("incorrect password 1")
+                print("incorrect password 1 or disconnected")
+                return scr[1].text, '-', '-', '-'
             else:
+                print("incorrect password 2")
                 return one_v1, one_v2, one_v3, one_v4
