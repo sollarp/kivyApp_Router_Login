@@ -12,7 +12,6 @@ from kivymd.uix.button import MDFlatButton
 hub5 = Hub_5()
 Window.size = (300, 500)
 screen_helper = """
-
 <ScreenManagement>:
     MenuScreen:
         id: screen1
@@ -20,6 +19,9 @@ screen_helper = """
     ProfileScreen:
         id: screen2
         name: 'profile'
+    UploadScreen:
+        id: screen3
+        name: 'upload'
 
 <MenuScreen>:
     name: 'menu'
@@ -55,10 +57,8 @@ screen_helper = """
         orientation:'vertical'
         MDToolbar:
             title: "Main"
-            left_action_items: [["dots-vertical", lambda x: x]]
+            left_action_items: [["arrow-left-bold-circle-outline", lambda x: root.manager.change_screen("menu")]]
             right_action_items: [["close-circle-outline", lambda x: app.callback()]]
-
-
 
         MDBottomNavigation:
             panel_color: .2, .2, .2, 1
@@ -192,15 +192,14 @@ class InstanceHolder():
     def set_instance(self, instance):
         self.test_instance = instance
 
-    #def get_instance(self):
-        #return self.test_instance
-
-
 dummy_instance = InstanceHolder()
 
 
 class ScreenManagement(ScreenManager):
-    pass
+    def change_screen(self, screen):
+        # the same as in .kv: app.root.current = screen
+        self.current = screen
+
 
 
 
@@ -234,6 +233,7 @@ class MenuScreen(Screen, MDApp):
 
 
     def check_data_login(self):
+
         password = self.adminpass.adminp.text
         selecteditem = self.adminpass.list.current_item
         hub5.get_password(admin_pass=password)
@@ -254,14 +254,18 @@ class MenuScreen(Screen, MDApp):
             )
             self.dialog.open()
         else:
-            change_screen = 'profile'
-            return change_screen
+            return 'profile'
+    def test_pass(self):
+        return 'profile'
+
+
 
 
 class ProfileScreen(Screen):
-    ## calling data to display on screen change
+    ## calling data to display on screen changeFKJ
     def on_enter(self, *args):
         self.navigation_draw()
+
 
     def navigation_draw(self):
         labels = hub5.bt_connection_page()
@@ -284,9 +288,13 @@ class ProfileScreen(Screen):
 
 
 
+    def set_screen(self):
+        print(MDApp.get_running_app())
+        ScreenManager.current = "upload"
+
+
 class UploadScreen(Screen):
     pass
-
 
 # Create the screen manager
 sm = ScreenManager()
