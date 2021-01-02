@@ -221,9 +221,6 @@ class ListButtonDropdown1(MDDropDownItem):
         self.menu.dismiss()
         self.instance_text = instance.text
 
-    # def get_instance_text(self):
-    # return self.instance_text
-
 
 class MenuScreen(Screen, MDApp):
     adminpass = ObjectProperty(None)
