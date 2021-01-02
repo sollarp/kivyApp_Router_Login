@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
-import requests
 import hashlib
+import requests
+
 
 
 class Hub_5():
@@ -9,8 +10,7 @@ class Hub_5():
     def get_password(self, admin_pass):
         self.admin_pass = admin_pass
         return self.admin_pass
-    #get_password = lambda admin_pass: admin_pass
-
+    ## parsing router UI and collecting data to make POST back to HTML server with correct authentication
     def admin_login(self):
 
         with requests.Session() as s:
@@ -58,14 +58,13 @@ class Hub_5():
                         return False
                     else:
                         pass
-                    # print(page_connection)
-                    # return page_connection
+
                 except:
                     print("this router is not supported")
                     return False
                 else:
                     return page_connection
-
+    ## Collecting data from router 'CONNECTION' page and retur it back to main.py ProfileScreen class navigation_draw
     def bt_connection_page(self):
 
         page_resource = self.admin_login()
@@ -110,9 +109,9 @@ class Hub_5():
                 one_v1 = (src1.text)
                 one_v2 = (src2.text)
                 one_v3 = (src3.text)
+                print(src1)
             except IndexError:
                 print("incorrect password 1 or disconnected")
                 return scr[1].text, '-', '-', '-'
             else:
-                print("incorrect password 2")
                 return one_v1, one_v2, one_v3, one_v4

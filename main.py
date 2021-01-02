@@ -1,16 +1,14 @@
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dropdownitem import MDDropDownItem
 from kivy.properties import ObjectProperty
-from kivy.core.window import Window
 from Router_UI_Scrape.BT_Hub5_ConnPage import Hub_5
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 
-hub5 = Hub_5()
-Window.size = (300, 500)
+
 screen_helper = """
 <ScreenManagement>:
     MenuScreen:
@@ -47,12 +45,12 @@ screen_helper = """
             pos_hint: {'center_x':0.5,'center_y':0.45}
             on_press: 
                 root.manager.current = root.check_data_login()
-                
-       
+
+
 
 <ProfileScreen>:
     name: 'profile'
-    
+
     BoxLayout:
         orientation:'vertical'
         MDToolbar:
@@ -154,7 +152,7 @@ screen_helper = """
                                 id: label4
                                 color: 1,0,1,1
                                 font_size: 15
-                
+
 
             MDBottomNavigationItem:
                 name: 'screen 2'
@@ -185,12 +183,14 @@ screen_helper = """
 """
 
 
+hub5 = Hub_5()
 ## Getting dropdown item from ListButtonDropdown1 class
 class InstanceHolder():
     test_instance = None
 
     def set_instance(self, instance):
         self.test_instance = instance
+
 
 dummy_instance = InstanceHolder()
 
@@ -199,8 +199,6 @@ class ScreenManagement(ScreenManager):
     def change_screen(self, screen):
         # the same as in .kv: app.root.current = screen
         self.current = screen
-
-
 
 
 class ListButtonDropdown1(MDDropDownItem):
@@ -223,24 +221,23 @@ class ListButtonDropdown1(MDDropDownItem):
         self.menu.dismiss()
         self.instance_text = instance.text
 
-    #def get_instance_text(self):
-       # return self.instance_text
+    # def get_instance_text(self):
+    # return self.instance_text
 
 
 class MenuScreen(Screen, MDApp):
     adminpass = ObjectProperty(None)
     dialog = None
-
-
+    ## log into Router
     def check_data_login(self):
 
         password = self.adminpass.adminp.text
-        selecteditem = self.adminpass.list.current_item
+        #selecteditem = self.adminpass.list.current_item
         hub5.get_password(admin_pass=password)
-        #print(password)
-        #print(selecteditem)
+        # print(password)
+        # print(selecteditem)
 
-        #hub5.bt_connection_page()
+        # hub5.bt_connection_page()
         incorrect_pass = hub5.admin_login()
         self.dialog = incorrect_pass
         if not self.dialog:
@@ -255,18 +252,16 @@ class MenuScreen(Screen, MDApp):
             self.dialog.open()
         else:
             return 'profile'
+    ## change screen to profile screen
     def test_pass(self):
         return 'profile'
 
 
-
-
 class ProfileScreen(Screen):
-    ## calling data to display on screen changeFKJ
+    ## calling data to display on screen change
     def on_enter(self, *args):
         self.navigation_draw()
-
-
+    ## presenting scrapped data from router connection page into kivy label
     def navigation_draw(self):
         labels = hub5.bt_connection_page()
         try:
@@ -282,12 +277,9 @@ class ProfileScreen(Screen):
             if hub5.bt_connection_page() is None:
                 print("device not connected to network")
             else:
-                print("router not supported in here")
-        else:
-            print("final 2")
+                print("router not supported")
 
-
-
+    ## change screen to upload screen
     def set_screen(self):
         print(MDApp.get_running_app())
         ScreenManager.current = "upload"
@@ -295,6 +287,7 @@ class ProfileScreen(Screen):
 
 class UploadScreen(Screen):
     pass
+
 
 # Create the screen manager
 sm = ScreenManager()
@@ -313,4 +306,5 @@ class DemoApp(MDApp):
         return ScreenManagement()
 
 
-DemoApp().run()
+if __name__ == '__main__':
+    DemoApp().run()
