@@ -201,7 +201,7 @@ class ScreenManagement(ScreenManager):
         self.current = screen
 
 
-class ListButtonDropdown1(MDDropDownItem):
+class ListButtonDropdown(MDDropDownItem):
     instance_text = ""
 
     def __init__(self, **kwargs):
