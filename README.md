@@ -5,7 +5,7 @@ Apllication allowes to scrape VDSL router (BT HUB5 and HUB4 'UK version') and lo
 This project was build on UBUNTU 20.04 and works only Linux enviroment.
 
 ISSUES:
-Unable to create APK with Builtdozer for a following reassons:
+Unable to create APK with Builtdozer for a following reasons:
  - Normal Python request library not supported use Kivy 'urlrequest' instead.. see in Kivy Doc.
  - hashlib and Beautifulsoup4 not supported by Builtdozer was not able to build APK.
  
